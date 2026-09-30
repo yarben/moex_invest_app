@@ -1,0 +1,565 @@
+"{
+    ""schemas"": {
+        ""public"": {
+            ""tables"": [
+                {
+                    ""name"": ""fundamentals"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('fundamentals_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""stock_id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 2
+                        },
+                        {
+                            ""name"": ""report_date"",
+                            ""type"": ""date"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 3
+                        },
+                        {
+                            ""name"": ""period_type"",
+                            ""type"": ""character varying(20)"",
+                            ""comment"": null,
+                            ""default"": ""'year'::character varying"",
+                            ""nullable"": false,
+                            ""position"": 4
+                        },
+                        {
+                            ""name"": ""equity"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 5
+                        },
+                        {
+                            ""name"": ""total_assets"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 6
+                        },
+                        {
+                            ""name"": ""net_earnings"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 7
+                        },
+                        {
+                            ""name"": ""total_debt"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 8
+                        },
+                        {
+                            ""name"": ""net_debt"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 9
+                        },
+                        {
+                            ""name"": ""free_cash_flow"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 10
+                        },
+                        {
+                            ""name"": ""revenue"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 11
+                        },
+                        {
+                            ""name"": ""created_at"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""now()"",
+                            ""nullable"": true,
+                            ""position"": 12
+                        },
+                        {
+                            ""name"": ""updated_at"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""now()"",
+                            ""nullable"": true,
+                            ""position"": 13
+                        },
+                        {
+                            ""name"": ""free_float_percent"",
+                            ""type"": ""numeric"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 14
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""fundamentals_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX fundamentals_pkey ON public.fundamentals USING btree (id)""
+                        },
+                        {
+                            ""name"": ""uq_fundamentals_report"",
+                            ""unique"": true,
+                            ""columns"": ""stock_id, report_date"",
+                            ""definition"": ""CREATE UNIQUE INDEX uq_fundamentals_report ON public.fundamentals USING btree (stock_id, report_date)""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                        {
+                            ""column"": ""stock_id"",
+                            ""constraint_name"": ""fk_fundamentals_stock"",
+                            ""references_table"": ""public.stocks"",
+                            ""references_column"": ""id""
+                        }
+                    ]
+                },
+                {
+                    ""name"": ""market_stats"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('market_stats_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""stock_id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 2
+                        },
+                        {
+                            ""name"": ""volume"",
+                            ""type"": ""bigint"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 5
+                        },
+                        {
+                            ""name"": ""turnover"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 6
+                        },
+                        {
+                            ""name"": ""dividend_amount"",
+                            ""type"": ""numeric(20,2)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 7
+                        },
+                        {
+                            ""name"": ""dividend_record_date"",
+                            ""type"": ""date"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 8
+                        },
+                        {
+                            ""name"": ""dividend_streak"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 9
+                        },
+                        {
+                            ""name"": ""updated_at"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""now()"",
+                            ""nullable"": true,
+                            ""position"": 10
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""market_stats_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX market_stats_pkey ON public.market_stats USING btree (id)""
+                        },
+                        {
+                            ""name"": ""market_stats_stock_id_key"",
+                            ""unique"": true,
+                            ""columns"": ""stock_id"",
+                            ""definition"": ""CREATE UNIQUE INDEX market_stats_stock_id_key ON public.market_stats USING btree (stock_id)""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                        {
+                            ""column"": ""stock_id"",
+                            ""constraint_name"": ""fk_market_stats_stock"",
+                            ""references_table"": ""public.stocks"",
+                            ""references_column"": ""id""
+                        }
+                    ]
+                },
+                {
+                    ""name"": ""prices"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('prices_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""price"",
+                            ""type"": ""double precision"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 3
+                        },
+                        {
+                            ""name"": ""timestamp"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""CURRENT_TIMESTAMP"",
+                            ""nullable"": true,
+                            ""position"": 4
+                        },
+                        {
+                            ""name"": ""stock_id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 5
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""idx_prices_stock_id"",
+                            ""unique"": false,
+                            ""columns"": ""stock_id"",
+                            ""definition"": ""CREATE INDEX idx_prices_stock_id ON public.prices USING btree (stock_id)""
+                        },
+                        {
+                            ""name"": ""idx_prices_timestamp"",
+                            ""unique"": false,
+                            ""columns"": ""timestamp"",
+                            ""definition"": ""CREATE INDEX idx_prices_timestamp ON public.prices USING btree (\""timestamp\"")""
+                        },
+                        {
+                            ""name"": ""prices_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX prices_pkey ON public.prices USING btree (id)""
+                        },
+                        {
+                            ""name"": ""unique_price_point"",
+                            ""unique"": true,
+                            ""columns"": ""stock_id, timestamp"",
+                            ""definition"": ""CREATE UNIQUE INDEX unique_price_point ON public.prices USING btree (stock_id, \""timestamp\"")""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                        {
+                            ""column"": ""stock_id"",
+                            ""constraint_name"": ""fk_stock"",
+                            ""references_table"": ""public.stocks"",
+                            ""references_column"": ""id""
+                        }
+                    ]
+                },
+                {
+                    ""name"": ""share_capital_history"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('share_capital_history_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""stock_id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 2
+                        },
+                        {
+                            ""name"": ""shares_outstanding"",
+                            ""type"": ""numeric"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 3
+                        },
+                        {
+                            ""name"": ""effective_from"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 4
+                        },
+                        {
+                            ""name"": ""created_at"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""now()"",
+                            ""nullable"": true,
+                            ""position"": 5
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""share_capital_history_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX share_capital_history_pkey ON public.share_capital_history USING btree (id)""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                        {
+                            ""column"": ""stock_id"",
+                            ""constraint_name"": ""share_capital_history_stock_id_fkey"",
+                            ""references_table"": ""public.stocks"",
+                            ""references_column"": ""id""
+                        }
+                    ]
+                },
+                {
+                    ""name"": ""stocks"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('stocks_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""ticker"",
+                            ""type"": ""character varying(10)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 2
+                        },
+                        {
+                            ""name"": ""name"",
+                            ""type"": ""character varying(255)"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": true,
+                            ""position"": 3
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""stocks_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX stocks_pkey ON public.stocks USING btree (id)""
+                        },
+                        {
+                            ""name"": ""stocks_ticker_key"",
+                            ""unique"": true,
+                            ""columns"": ""ticker"",
+                            ""definition"": ""CREATE UNIQUE INDEX stocks_ticker_key ON public.stocks USING btree (ticker)""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                    ]
+                },
+                {
+                    ""name"": ""subscriptions"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('subscriptions_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""user_id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 2
+                        },
+                        {
+                            ""name"": ""stock_id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 3
+                        },
+                        {
+                            ""name"": ""conditions_json"",
+                            ""type"": ""jsonb"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 4
+                        },
+                        {
+                            ""name"": ""created_at"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""now()"",
+                            ""nullable"": true,
+                            ""position"": 5
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""subscriptions_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX subscriptions_pkey ON public.subscriptions USING btree (id)""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                        {
+                            ""column"": ""user_id"",
+                            ""constraint_name"": ""subscriptions_user_id_fkey"",
+                            ""references_table"": ""public.users"",
+                            ""references_column"": ""id""
+                        },
+                        {
+                            ""column"": ""stock_id"",
+                            ""constraint_name"": ""subscriptions_stock_id_fkey"",
+                            ""references_table"": ""public.stocks"",
+                            ""references_column"": ""id""
+                        }
+                    ]
+                },
+                {
+                    ""name"": ""users"",
+                    ""columns"": [
+                        {
+                            ""name"": ""id"",
+                            ""type"": ""integer"",
+                            ""comment"": null,
+                            ""default"": ""nextval('users_id_seq'::regclass)"",
+                            ""nullable"": false,
+                            ""position"": 1
+                        },
+                        {
+                            ""name"": ""email"",
+                            ""type"": ""text"",
+                            ""comment"": null,
+                            ""default"": null,
+                            ""nullable"": false,
+                            ""position"": 2
+                        },
+                        {
+                            ""name"": ""created_at"",
+                            ""type"": ""timestamp without time zone"",
+                            ""comment"": null,
+                            ""default"": ""CURRENT_TIMESTAMP"",
+                            ""nullable"": true,
+                            ""position"": 3
+                        },
+                        {
+                            ""name"": ""manage_token"",
+                            ""type"": ""uuid"",
+                            ""comment"": null,
+                            ""default"": ""gen_random_uuid()"",
+                            ""nullable"": true,
+                            ""position"": 4
+                        }
+                    ],
+                    ""comment"": null,
+                    ""indexes"": [
+                        {
+                            ""name"": ""users_email_key"",
+                            ""unique"": true,
+                            ""columns"": ""email"",
+                            ""definition"": ""CREATE UNIQUE INDEX users_email_key ON public.users USING btree (email)""
+                        },
+                        {
+                            ""name"": ""users_pkey"",
+                            ""unique"": true,
+                            ""columns"": ""id"",
+                            ""definition"": ""CREATE UNIQUE INDEX users_pkey ON public.users USING btree (id)""
+                        }
+                    ],
+                    ""primary_key"": [
+                        ""id""
+                    ],
+                    ""foreign_keys"": [
+                    ]
+                }
+            ]
+        }
+    },
+    ""database"": ""invest_db"",
+    ""generated_at"": ""2026-06-18T23:38:07.333117+03:00""
+}"
