@@ -1,0 +1,43 @@
+-- -- количество подписок на пользователя + email
+-- select u.email, count(s.id) as total_subscriptions
+-- from users u
+-- left join subscriptions s on u.id = s.user_id
+-- group by u.email;
+-- -- пользователи с более чем 2 подписками
+-- select u.email
+-- from users u
+-- join subscriptions s on u.id = s.user_id
+-- group by u.email
+-- having count(s.id) > 2;
+-- -- средняя цена по каждому тикеру
+-- select stock_id, avg(target_price) as avg_price
+-- from subscriptions
+-- group by stock_id;
+-- -- максимальная и минимальная цена по тикерам
+-- select stock_id, min(target_price), max(target_price)
+-- from subscriptions
+-- group by stock_id;
+-- -- пользователи без подписок
+-- select u.email
+-- from users u
+-- left join subscriptions s on u.id = s.user_id
+-- where s.id is null;
+-- -- активные токены + email
+-- select u.email, t.token
+-- from auth_tokens t
+-- join users u on t.user_id = u.id
+-- where t.expires_at > now();
+-- -- сколько подписок на каждый тикер (с сортировкой)
+-- select stock_id, count(*) as total
+-- from subscriptions
+-- group by stock_id
+-- order by total desc;
+-- -- подписки пользователей с почтой mail.com
+-- select s.*
+-- from subscriptions s
+-- join users u on s.user_id = u.id
+-- where u.email like '%mail.com';
+-- -- удаление просроченных токенов с возвратом удалённых строк
+-- delete from auth_tokens
+-- where expires_at < now()
+-- returning *;
